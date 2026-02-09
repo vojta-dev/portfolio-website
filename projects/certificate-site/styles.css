@@ -1,0 +1,21 @@
+.back-button{
+position: absolute;
+top: 30px;
+left: 30px;
+width: 50px;
+height: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+text-decoration: none;
+font-size: 1.2rem;
+cursor: pointer;
+ transition: all 0.4s ease; /* Smooth transition for all properties */
+  cursor: pointer;
+}
+   
+.back-button:hover {
+  transform: scale(1.42); /* Enlarges the button */
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3); /* Adds a shadow for depth */
+  filter: brightness(1.1); /* Slightly brightens the button */
+}

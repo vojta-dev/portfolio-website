@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates Portfolio</title>
+      <link rel="stylesheet" href="styles.css">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+      
+    <style>
+        :root {
+            --bg-dark: #0a0e27;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent: #667eea;
+            --text-main: #e4e4e7;
+            --text-dim: #a1a1aa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 4rem; }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        /* The Grid */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* The Card */
+        .cert-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .cert-img-container {
+            width: 100%;
+            height: 200px;
+            background: #161b33;
+            overflow: hidden;
+        }
+
+        .cert-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+     .cert-card:hover img { transform: scale(1.05); }
+
+        .cert-info { padding: 1.5rem; flex-grow: 1; }
+        .cert-category { font-size: 0.7rem; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 1px; }
+        .cert-title { font-size: 1.2rem; margin: 0.5rem 0; color: #fff; line-height: 1.3; }
+        .cert-date { font-size: 0.85rem; color: var(--text-dim); }
+
+        /* Modal / Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: #1a1f3a;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: none; color: #fff;
+            width: 40px; height: 40px;
+            border-radius: 50%; cursor: pointer;
+            font-size: 1.2rem; z-index: 10;
+        }
+
+        .modal-img { width: 100%; max-height: 500px; object-fit: contain; background: #000; }
+        .modal-body { padding: 2rem; }
+        .verify-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .verify-btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+        @media (max-width: 600px) {
+            .modal-body { padding: 1.5rem; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+      <div class="back-button">
+      <a href="../../index.html" target="_self" rel="noopener noreferrer">
+           <i class="fa-solid fa-arrow-left fa-xl" style="color: #ffffff;"></i></a>
+
+    </div>
+<div class="container">
+    <header>
+        <h1>Moje Certifikáty</h1>
+        <p style="color: var(--text-dim)">Klikněte na libovolnou kartu a ověřte si moje certifikáty.</p>
+    </header>
+
+    <div class="certificates-grid" id="grid"></div>
+</div>
+
+<div class="modal" id="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeModal()">✕</button>
+        <img id="modal-img" src="" alt="Certificate Large View" class="modal-img">
+        <div class="modal-body">
+            <h2 id="modal-title" style="color: #fff; margin-bottom: 0.5rem;"></h2>
+            <p id="modal-meta" style="color: var(--accent); font-weight: 500; margin-bottom: 1rem;"></p>
+            <p id="modal-desc" style="color: var(--text-dim);"></p>
+            <a id="modal-link" href="#" target="_blank" class="verify-btn">Verify Credential →</a>
+        </div>
+    </div>
+</div>
+
+<script>
+        // ADD YOUR CERTIFICATES HERE
+        // imageUrl: The path to your saved image file
+         const myCerts = [
+          {
+            id: 1,
+            title: "Introduction to Programming with JavaScript",
+            date: "September 25, 2025",
+            category: "Learning Path",
+            issuer: "LEARNPROGRAMMING",
+            imageUrl: "certificates/Certificate.png",
+            verifyUrl: "https://res.cloudinary.com/dbfn5lnvx/image/authenticated/s--buDpsbYY--/v1758812797/certificates/programming/vojtavenglo-7017.pdf",
+            description: "Komplexní cesta zahrnující celé základy JavaScriptu."
+        },
+        
+         {
+            id: 2,
+            title: "Introduction to Web Development",
+            date: "February 01, 2026",
+            category: "Learning Path",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (9).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/course-paths/324",
+            description: "Komplexní cesta zahrnující HTML, CSS a základy JavaScriptu."
+        },
+   
+        {
+            id: 3,
+            title: "Introduction to Programming with JavaScript",
+            date: "January 29, 2026",
+            category: "Learning Path",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal Certificate (4).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/course-paths/341",
+            description: "Certifikace zaměřená na logiku programování a algoritmy v JS."
+        },
+        {
+            id: 4,
+            title: "Introduction to Functional Programming",
+            date: "February 02, 2026",
+            category: "Functional Programming",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (13).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/course-paths/488", 
+            description: "Pokročilé techniky funkcionálního paradigmatu."
+        },
+        {
+            id: 5,
+            title: "Connecting code to web pages with JavaScript",
+            date: "February 01, 2026",
+            category: "JavaScript, DOM",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (8).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/1395",
+            description: "Práce s DOM API a interaktivita webu."
+        },
+        {
+            id: 6,
+            title: "Hello, JavaScript! Your First Steps",
+            date: "January 27, 2026",
+            category: "JS Fundamentals",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal Certificate.png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/1464",
+            description: "První kroky v JavaScriptu, proměnné a výstupy."
+        },
+        {
+            id: 7,
+            title: "The Crossroads of Code: Making Decisions",
+            date: "January 27, 2026",
+            category: "Computer Science",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal Certificate (2).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/1466",
+            description: "Logické podmínky a větvení kódu."
+        },
+        {
+            id: 8,
+            title: "JavaScript's Auto-Pilot: Mastering Loops",
+            date: "January 28, 2026",
+            category: "Algorithms",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal Certificate (3).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/1467",
+            description: "Zvládnutí cyklů a iterací v programování."
+        },
+        {
+            id: 9,
+            title: "CSS: Styling the Web",
+            date: "January 31, 2026",
+            category: "Web Design",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (5).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/1394",
+            description: "Pokročilé stylování pomocí CSS a layoutů."
+        },
+        {
+            id: 10,
+            title: "HTML: The Structure of the Web",
+            date: "January 31, 2026",
+            category: "Web Development",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (6).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/1393",
+            description: "Struktura dokumentu a sémantika HTML5."
+        },
+        {
+            id: 11,
+            title: "JavaScript: Making Web Pages Interactive",
+            date: "February 01, 2026",
+            category: "DOM API",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (7).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/1395",
+            description: "Vytváření interaktivních prvků na webové stránce."
+        },
+        {
+            id: 12,
+            title: "Pure Functions and Immutability",
+            date: "February 02, 2026",
+            category: "Functional Programming",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (10).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/2061",
+            description: "Koncepty čistých funkcí a neměnnosti dat."
+        },
+        {
+            id: 13,
+            title: "Thinking Functionally",
+            date: "February 02, 2026",
+            category: "Software Practices",
+            issuer: "CodeSignal",
+            imageUrl: "certificates/CodeSignal_Certificate (11).png",
+            verifyUrl: "https://codesignal.com/learn/certificates/cmksh7wjf008kjs04dt10yyc7/courses/2060",
+            description: "Způsob myšlení ve funkcionálním programování."
+        },
+              {
+            id: 14,
+            title: "Roblox herní design a vývoj",
+            date: "červenec , 2021",
+            category: "Příměstký tábor",
+            issuer: "logicool",
+            imageUrl: "certificates/Roblox_certificate.png",
+            verifyUrl: "",
+            description: "Certifikát za absolvování příměstkého tábora zaměřený na vývoj her v Robloxu."
+        }
+    ];
+
+const grid = document.getElementById('grid');
+
+    // Updated Render function to use imageUrl and verifyUrl
+    function render() {
+        grid.innerHTML = myCerts.map(cert => `
+            <div class="cert-card" onclick="openModal(${cert.id})">
+                <div class="cert-img-container">
+                    <img src="${cert.imageUrl}" alt="${cert.title}" onerror="this.src='https://via.placeholder.com/400x250/161b33/ffffff?text=Image+Missing'">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-category">${cert.category}</div>
+                    <h3 class="cert-title">${cert.title}</h3>
+                    <div class="cert-date">${cert.date}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function openModal(id) {
+        const cert = myCerts.find(c => c.id === id);
+        if(!cert) return;
+
+        document.getElementById('modal-img').src = cert.imageUrl;
+        document.getElementById('modal-title').textContent = cert.title;
+        document.getElementById('modal-meta').textContent = `${cert.issuer} • ${cert.date}`;
+        document.getElementById('modal-desc').textContent = cert.description;
+        document.getElementById('modal-link').href = cert.verifyUrl;
+        document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+    }
+
+    render();
+</script>
+
+</body>
+</html>

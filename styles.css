@@ -1,0 +1,451 @@
+:root {
+  --text-color: #1a1c20;
+  --link-color: #4a76ee;
+  --background-color: #eeeff1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 50px;
+  height: 80px;
+}
+
+nav .left a {
+  color: var(--text-color);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+nav .right a {
+  color: var(--text-color);
+  margin: 0 10px;
+}
+
+nav .right a:last-child {
+  color: var(--background-color);
+  background-color: var(--text-color);
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+nav .right a span {
+  margin-left: 5px;
+}
+
+/* SECTION 1: Hero */
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  margin: 50px 0;
+  margin-bottom: 104px;
+  gap: 40px;
+}
+
+.hero-section .text {
+  flex: 5;
+}
+
+.hero-section .text h2 {
+  font-size: 45px;
+}
+
+.hero-section .text .links {
+  margin-top: 25px;
+}
+
+.hero-section .text .links a {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid var(--link-color);
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  transition: .1s;
+}
+
+.hero-section .text .links a:hover {
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+}
+
+.hero-section .headshot {
+  flex: 2;
+  display: flex;
+  justify-content: right;
+}
+
+.hero-section .headshot img {
+  width: 425px;
+  border-radius: 20%;
+}
+ 
+/* SECTION 2: Skills */
+.skills-section {
+  padding: 0 50px;
+  margin-bottom: 100px;
+}
+
+.skills-section h2 {
+  text-align: center;
+  font-size: 35px;
+}
+
+.skills-section .text {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.skills-section .cells {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.skills-section .cells .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: 200px;
+  padding: 10px 20px;
+  margin: 10px;
+  border: 1.5px solid #d3d3d3;
+  border-radius: 5px;
+}
+
+.skills-section .cells .cell img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.skills-section .cells .cell span {
+  font-size: 18px;
+
+}
+
+/* SECTION 3: Projekty */
+
+.projekty-section{
+  padding: 0px;
+  margin-bottom: 100px;
+  text-align: center;
+}
+.img-project {
+  width:300px; /* Set a fixed width for the container */
+  height: 240px; /* Set a fixed height for the container */
+      margin-left: 45px;
+  margin-right: 45px;
+  margin-top: 50px;
+  
+}
+
+
+.img-project img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Scales images to fit without cropping */
+  border-radius: 15px;
+  transition: all 0.4s ease; /* Smooth transition for all properties */
+  cursor: pointer; /* Indicates the image is clickable */
+}
+
+.img-project img:hover {
+  transform: scale(1.1) translateY(-10px); /* Enlarges and lifts the image */
+ box-shadow: 0   rgba(0, 0, 0, 0.3); /* Adds a deeper shadow for a floating effect */
+  filter: brightness(1.05)
+}
+
+ 
+
+.projekt-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  text-align: center; /* Centers the title and description text */
+}
+.projekty-section h2 {
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+.projekty-section .group {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.projekty-section .group .person-details {
+  text-align: center;
+  flex: 2;
+}
+
+.projekty-section .group .person-details img {
+  width: 200px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.projekty-section .group .person-details p {
+  font-weight: 600;
+}
+
+.projekty-section .group .person-details p:last-child {
+  font-weight: normal;
+}
+
+.projekty-section .group .text {
+  flex: 8;
+}
+
+.projekty-section .projekty-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust gap as needed */
+  @media screen {
+    max-width: fit-content;
+    max-height: fit-content;
+  }
+}
+
+
+
+/* ============================================
+   MEDALS SECTION - ENHANCED STYLING
+   ============================================ */
+   
+ .medaile-section h2 {
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+.img-medaile {
+  width:400px; /* Set a fixed width for the container */
+  height: 340px; /* Set a fixed height for the container */
+      margin-left: 45px;
+  margin-right: 45px;
+  margin-top: 50px;
+}
+.img-medaile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Scales images to fit without cropping */
+  border-radius: 15px;
+  transition: all 0.4s ease; /* Smooth transition for all properties */
+  cursor: pointer; /* Indicates the image is clickable */
+}
+.medaile-section{
+  padding: 0px;
+  margin-bottom: 100px;
+  text-align: center;
+}
+.medaile-grid {
+      display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 40px;
+    perspective: 2000px; /* Zvýšená perspektiva pro lepší 3D */
+    overflow: hidden;
+}
+
+/* Karta */
+.medaile-card {
+    width: 280px;
+    height: 380px;
+    position: relative;
+}
+
+/* Vnitřní část s plynulým pohybem */
+.medaile-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* "Springy" efekt - karta trochu překmitne */
+    transform-style: preserve-3d;
+}
+
+/* Fancy Hover stav */
+.medaile-card:hover .medaile-inner {
+    transform: rotateY(180deg) scale(1.05); /* Otočení + mírné zvětšení */
+}
+
+/* Přední a zadní strana */
+.medaile-front, .medaile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.2)
+}
+
+/* Přední strana s jemným gradientem navíc */
+.medaile-front {
+    background: radial-gradient(circle at center, #ffffff 0%, #f0f0f0 100%);
+}
+
+.medaile-front img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    /* Efekt vznášení obrázku uvnitř karty */
+    transition: transform 0.5s ease;
+}
+.medaile-card:hover .medaile-front img {
+    transform: translateZ(50px); /* Obrázek se při pohybu opticky vysune */
+}
+/* Zadní strana - Dark Glassmorphism styl */
+.medaile-back {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
+    color: #fff;
+    transform: rotateY(180deg);
+    padding: 30px;
+    text-align: center;
+}
+
+/* Zlatý detail na zadní straně */
+.medaile-back h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.medaile-back p {
+    font-size: 1rem;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* Světelný odlesk při otočení */
+
+.medaile-back::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    transition: 0.8s;
+}
+.medaile-card:hover .medaile-back::after {
+    transform: rotate(45deg) translate(50%, 50%);
+} 
+@media (max-width: 740px) {
+  /* SECTION 1: Hero */
+  .hero-section {
+    flex-direction: column-reverse;
+  }
+
+  .hero-section .headshot img {
+    width: 300px;
+  }
+
+  /* SECTION 3: Testimony */
+  .projekty-section {
+    text-align: center;
+  }
+
+  .projekty-section .group {
+    flex-direction: column;
+  }
+
+  /* SECTION 4: Contact */
+  .medaille-section .group {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  /* NAVBAR */
+  nav {
+    padding: 0 20px;
+  }
+
+  nav .right a {
+    font-size: 22px;
+  }
+
+  nav .right a:last-child {
+    color: var(--text-color);
+    background-color: transparent;
+    padding: 0;
+  }
+
+  nav .right a span {
+    display: none;
+  }
+
+  /* SECTION 1: Hero */
+  .hero-section {
+    padding: 0 20px;
+  }
+
+  .hero-section .text h2 {
+    font-size: 30px;
+  }
+
+  /* SECTION 2: Skills */
+  .skills-section {
+    padding: 0 20px;
+  }
+
+  .skills-section .cells .cell span {
+    font-size: 16px;
+  }
+
+  /* SECTION 3: Testimony */
+  .projekty-section {
+    padding: 0 20px;
+  }
+
+  /* SECTION 4: Contact */
+  .medaille-section {
+    padding: 0 20px;
+  }
+}
